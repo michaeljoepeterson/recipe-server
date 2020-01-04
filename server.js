@@ -4,6 +4,7 @@ const {PORT, DATABASE_URL } = require('./config');
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const jsonParser = bodyParser.json();
+const {userRouter} = require('./routers/routerExports');
 const app = express();
 app.use(jsonParser);
 
@@ -16,6 +17,8 @@ app.use(function (req, res, next) {
     }
     next();
 });
+
+app.use('/api/users',userRouter);
 
 function runServer( databaseUrl, port = PORT) {
     return new Promise((resolve, reject) => {
