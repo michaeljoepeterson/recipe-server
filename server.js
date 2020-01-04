@@ -1,10 +1,13 @@
 require('dotenv').config();
 const express = require('express');
+const passport = require('passport');
 const {PORT, DATABASE_URL } = require('./config');
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const jsonParser = bodyParser.json();
+const {localStrategy, jwtStrategy} = require('./auth/strategies');
 const {userRouter} = require('./routers/routerExports');
+const {router: authRouter} = require('./auth/router');
 const app = express();
 app.use(jsonParser);
 
@@ -18,7 +21,11 @@ app.use(function (req, res, next) {
     next();
 });
 
+passport.use(localStrategy);
+passport.use(jwtStrategy);
+
 app.use('/api/users',userRouter);
+app.use('/api/auth/', authRouter);
 
 function runServer( databaseUrl, port = PORT) {
     return new Promise((resolve, reject) => {

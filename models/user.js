@@ -10,6 +10,12 @@ const userSchema = mongoose.Schema({
     lastLoginAttempt:{type:Date}
 });
 
+userSchema.methods.serialize = function(){
+	return{
+		username: this.email || '',
+	}
+}
+
 userSchema.methods.validatePassword = function(password){
 	return bcrypt.compare(password, this.password);
 };
