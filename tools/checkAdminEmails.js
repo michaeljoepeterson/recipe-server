@@ -2,7 +2,6 @@ const {ADMIN_EMAILS} = require('../config');
 
 function checkAdminEmails(req,res,next){
     let adminEmails = ADMIN_EMAILS.split(',');
-    console.log(adminEmails);
     let {email} = req.body;
     let foundEmail = false;
     for(let i = 0;i < adminEmails.length;i++){

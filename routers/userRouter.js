@@ -1,9 +1,9 @@
 const express = require('express');
 const {User} = require('../models/user');
 const router = express.Router();
-const {checkAdminEmails} = require('../tools/checkAdminEmails');
+const {checkAdminEmails,checkEmail} = require('../tools/toolExports');
 
-router.post('/admin',checkAdminEmails,(req,res) => {
+router.post('/admin',checkEmail,checkAdminEmails,(req,res) => {
     const {email,password} = req.body;
 
     return User.hashPassword(password)
@@ -23,7 +23,13 @@ router.post('/admin',checkAdminEmails,(req,res) => {
     })
 
     .catch(err => {
-        console.log('error ',err)
+        console.log('error ',err);
+        if(err.message.includes('E11000')){
+            return res.json({
+                code:401,
+                message:'User already exists'
+            });
+        }
         return res.json({
             code:500,
             message:'an error occured'
