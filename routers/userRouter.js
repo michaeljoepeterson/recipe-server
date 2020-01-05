@@ -1,9 +1,9 @@
 const express = require('express');
 const {User} = require('../models/user');
 const router = express.Router();
-const {checkAdminEmails,checkEmail} = require('../tools/toolExports');
+const {checkAdminEmails,checkEmail,checkUser} = require('../tools/toolExports');
 
-router.post('/admin',checkEmail,checkAdminEmails,(req,res) => {
+router.post('/admin',checkUser,checkEmail,checkAdminEmails,(req,res) => {
     const {email,password} = req.body;
 
     return User.hashPassword(password)
