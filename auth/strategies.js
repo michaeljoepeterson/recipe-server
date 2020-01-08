@@ -8,7 +8,6 @@ const localStrategy = new LocalStrategy({usernameField:"email", passwordField:"p
 	User.findOne({email:email})
 	.then(_user => {
 		user = _user;
-		console.log(user);
 		if(!user){
 			//console.log("error");
 			return Promise.reject({

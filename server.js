@@ -6,11 +6,11 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const jsonParser = bodyParser.json();
 const {localStrategy, jwtStrategy} = require('./auth/strategies');
-const {userRouter} = require('./routers/routerExports');
+const {userRouter,recipeRouter} = require('./routers/routerExports');
 const {router: authRouter} = require('./auth/router');
 const app = express();
 app.use(jsonParser);
-
+app.set('trust proxy', true)
 app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'Content-Type,Authorization,Accept');
@@ -26,6 +26,7 @@ passport.use(jwtStrategy);
 
 app.use('/api/users',userRouter);
 app.use('/api/auth/', authRouter);
+app.use('/api/recipes/', recipeRouter);
 
 function runServer( databaseUrl, port = PORT) {
     return new Promise((resolve, reject) => {
