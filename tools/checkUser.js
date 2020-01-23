@@ -5,6 +5,7 @@ function checkUser(req,res,next){
     };
     const numRequired = Object.keys(required).length;
     const reqFields = Object.keys(req.body);
+    console.log(req.body);
     let notString = false;
     let fieldsfound = 0;
     for (let i = 0; i < reqFields.length; i++) {

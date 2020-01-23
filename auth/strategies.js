@@ -5,6 +5,7 @@ const { JWT_SECRET } = require('../config');
 
 const localStrategy = new LocalStrategy({usernameField:"email", passwordField:"password"},(email,password,callback) => {
 	let user;
+	//console.log(email);
 	User.findOne({email:email})
 	.then(_user => {
 		user = _user;
