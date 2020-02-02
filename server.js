@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const jsonParser = bodyParser.json();
 const {localStrategy, jwtStrategy} = require('./auth/strategies');
-const {userRouter,recipeRouter} = require('./routers/routerExports');
+const {userRouter,recipeRouter,recipeRouterpublic} = require('./routers/routerExports');
 const {router: authRouter} = require('./auth/router');
 const app = express();
 app.use(jsonParser);
@@ -27,6 +27,7 @@ passport.use(jwtStrategy);
 app.use('/api/users',userRouter);
 app.use('/api/auth/', authRouter);
 app.use('/api/recipes/', recipeRouter);
+app.use('/api/recipes-get', recipeRouterpublic);
 
 function runServer( databaseUrl, port = PORT) {
     return new Promise((resolve, reject) => {
