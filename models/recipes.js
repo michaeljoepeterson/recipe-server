@@ -13,9 +13,9 @@ const recipeSchema = mongoose.Schema({
     description:{type:String,required:true},
     ingredients:[ingredientSchema],
     steps:{type:Array,required:true},
-    mainImage:{type:String,required:true},
-    extraImages:{type:String,required:true},
-    youtube:{type:String,required:true},
+    mainImage:{type:String},
+    extraImages:{type:String},
+    youtube:{type:String},
     videoNotes:{type:String,default:""},
     active:{type:Boolean,default:false}
 },{minimize:false});
