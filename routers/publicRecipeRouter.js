@@ -6,7 +6,7 @@ router.get('/',(req,res) =>{
     let {skip,limit} = req.query;
     limit = limit ? parseInt(limit) : 20;
     skip = skip ? parseInt(skip) : 0;
-    return Recipe.find().limit(limit).skip(skip)
+    return Recipe.find({active:true}).limit(limit).skip(skip)
 
     .then(recipes => {
         return res.json({
