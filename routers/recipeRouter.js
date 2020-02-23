@@ -7,7 +7,7 @@ router.use(jwtAuth);
 //add verification middleware
 router.post('/',(req,res) => {
     console.log(req.body);
-    const {title,servingSize,tte,description,ingredients,steps,mainImage, extraImages,youtube,videoNotes,active} = req.body;
+    const {title,servingSize,tte,description,ingredients,steps,mainImage, extraImages,youtube,videoNotes,active,shortDescription} = req.body;
     return Recipe.create({
         title,
         servingSize,
@@ -19,7 +19,8 @@ router.post('/',(req,res) => {
         extraImages,
         youtube,
         videoNotes,
-        active
+        active,
+        shortDescription
     })
 
     .then( recipe => {

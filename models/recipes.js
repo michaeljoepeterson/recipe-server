@@ -11,6 +11,7 @@ const recipeSchema = mongoose.Schema({
     servingSize:{type:String,required:true},
     tte:{type:String,required:true},
     description:{type:String,required:true},
+    shortDescription:{type:String},
     ingredients:[ingredientSchema],
     steps:{type:Array,required:true},
     mainImage:{type:String},
