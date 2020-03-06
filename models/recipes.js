@@ -19,7 +19,8 @@ const recipeSchema = mongoose.Schema({
     youtube:{type:String},
     videoNotes:{type:String,default:""},
     active:{type:Boolean,default:false},
-    featured:{type:Boolean,default:false}
+    featured:{type:Boolean,default:false},
+    handle:{type:String,unique:true,required:true}
 },{minimize:false});
 
 const Recipe = mongoose.model("Recipe",recipeSchema);

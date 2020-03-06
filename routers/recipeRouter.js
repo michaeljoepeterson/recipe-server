@@ -3,11 +3,13 @@ const {Recipe} = require('../models/recipes');
 const passport = require('passport');
 const router = express.Router();
 const jwtAuth = passport.authenticate('jwt', { session: false });
+const {handleize} = require('./routerTools/handleize');
 router.use(jwtAuth);
 //add verification middleware
 router.post('/',(req,res) => {
     console.log(req.body);
     const {title,servingSize,tte,description,ingredients,steps,mainImage, extraImages,youtube,videoNotes,active,shortDescription,featured} = req.body;
+    const handle = handleize(title);
     return Recipe.create({
         title,
         servingSize,
@@ -21,7 +23,8 @@ router.post('/',(req,res) => {
         videoNotes,
         active,
         shortDescription,
-        featured
+        featured,
+        handle
     })
 
     .then( recipe => {
