@@ -11,7 +11,8 @@ router.post('/admin',checkUser,checkEmail,checkAdminEmails,checkAdminLocs,(req,r
     .then(hash => {
         return User.create({
             email,
-            password:hash
+            password:hash,
+            admin:true
         })
     })
 
