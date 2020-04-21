@@ -49,9 +49,54 @@ router.post('/',(req,res) => {
     })
     
 });
-/*
+
+function createUpdateData(body){
+    let data = {};
+    
+    for(let field in body){
+        data[field] = body[field];
+    }
+
+    return data;
+}
+
 router.put('/:recipeHandle',(req,res) => {
     let {recipeHandle} = req.params;
-})
-*/
+    console.log(req.body,recipeHandle);
+    const updateData = createUpdateData(req.body);
+    
+    return Recipe.findOneAndUpdate({'handle':recipeHandle},{
+        $set:updateData
+    },{
+        useFindAndModify:false
+    })
+
+    .then(response => {
+        return res.json({
+            code:200,
+            message:'Recipe Updated'
+        });
+    })
+
+    .catch( err=> {
+        console.log('Error updating recipe ',err);
+        if(err.message.includes('E11000')){
+            return res.json({
+                code:401,
+                message:'Recipe already exists'
+            });
+        }
+        else{
+            return res.json({
+                code:500,
+                message:'Error Updating Recipe',
+                error:err.errmsg
+            });
+        }
+        
+    });
+});
+
+
+
 module.exports = {router};
