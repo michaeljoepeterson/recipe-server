@@ -7,7 +7,8 @@ const userSchema = mongoose.Schema({
     admin:{type:Boolean},
     lastAccess:{type:Date},
     lastLogin:{type:Date},
-    lastLoginAttempt:{type:Date}
+    lastLoginAttempt:{type:Date},
+    level:{type:Number}
 });
 
 userSchema.methods.serialize = function(){

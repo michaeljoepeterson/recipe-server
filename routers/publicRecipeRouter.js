@@ -1,5 +1,6 @@
 const express = require('express');
 const {Recipe} = require('../models/recipes');
+const {checkKey} = require('../tools/checkKey');
 const router = express.Router();
 //bulk get recipes
 router.get('/',(req,res) =>{
@@ -12,6 +13,26 @@ router.get('/',(req,res) =>{
         return res.json({
             code:200,
             recipes
+        });
+    })
+
+    .catch(err => {
+        console.log('error ',err);
+
+        return res.json({
+            code:500,
+            message:'an error occured'
+        });
+    });
+});
+router.get('/copy',checkKey,(req,res) =>{
+
+    return Recipe.find({})
+
+    .then(recipeResults => {
+        return res.json({
+            code:200,
+            recipes:recipeResults.map(recipe => recipe.serialize())
         });
     })
 
@@ -46,5 +67,7 @@ router.get('/:recipeHandle',(req,res) =>{
         });
     });
 });
+
+
 
 module.exports = {router};

@@ -24,6 +24,25 @@ const recipeSchema = mongoose.Schema({
     handle:{type:String,unique:true,required:true}
 },{minimize:false});
 
+recipeSchema.methods.serialize = function(){
+    return {
+        title:this.title,
+        servingSize:this.servingSize,
+        tte:this.tte,
+        description:this.description,
+        shortDescription:this.shortDescription,
+        ingredients:this.ingredients,
+        steps:this.steps,
+        mainImage:this.mainImage,
+        extraImages:this.extraImages,
+        youtube:this.youtube,
+        videoNotes:this.videoNotes,
+        active:this.active,
+        featured:this.featured,
+        handle:this.handle
+    }
+}
+
 const Recipe = mongoose.model("Recipe",recipeSchema);
 
 module.exports = {Recipe};
